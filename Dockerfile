@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
     libssl-dev \
     libffi-dev \
+    tzdata \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements first to leverage Docker cache
