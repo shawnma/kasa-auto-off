@@ -4,7 +4,7 @@
 TARGET = kasa_manager.zip
 
 # The files that need to be in the zip file
-SOURCES = kasa_manager.py requirements.txt kasa.sh
+SOURCES = kasa_manager.py requirements.txt kasa.sh Dockerfile
 
 package: clean
 	@echo "Creating portable zip package..."
