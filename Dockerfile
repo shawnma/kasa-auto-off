@@ -23,6 +23,8 @@ RUN pip install --no-cache-dir --upgrade pip && \
 # Copy the script
 COPY kasa_manager.py .
 
-# Set the default command
-# Note: Network discovery requires --net=host when running the container
-ENTRYPOINT ["python", "kasa_manager.py", "monitor", "hot water pump"]
+# Set the entrypoint to the script
+ENTRYPOINT ["python", "kasa_manager.py"]
+
+# Set the default arguments
+CMD ["monitor", "hot water pump"]
