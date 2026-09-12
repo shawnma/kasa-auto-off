@@ -41,6 +41,7 @@ jobs:
           file: ${{ matrix.file }}
           platforms: linux/amd64
           pull: true
+          no-cache: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
           push: true
           tags: |
             ghcr.io/shawnma/${{ matrix.image }}:${{ steps.version.outputs.tag }}
