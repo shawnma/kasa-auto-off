@@ -45,9 +45,17 @@ jobs:
           push: true
           tags: |
             ghcr.io/shawnma/${{ matrix.image }}:${{ steps.version.outputs.tag }}
-            ghcr.io/shawnma/${{ matrix.image }}:latest
           labels: |
             org.opencontainers.image.source=https://github.com/${{ github.repository }}
             org.opencontainers.image.revision=${{ github.sha }}
           provenance: mode=max
           sbom: true
+      - name: Promote only the current main revision
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          IMAGE: ghcr.io/shawnma/${{ matrix.image }}
+          VERSION: ${{ steps.version.outputs.tag }}
+        run: |
+          if [ "$(gh api "repos/$GITHUB_REPOSITORY/commits/main" --jq .sha)" = "$GITHUB_SHA" ]; then
+            docker buildx imagetools create --tag "$IMAGE:latest" "$IMAGE:$VERSION"
+          fi
